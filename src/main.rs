@@ -2,7 +2,7 @@ use clap::{ Arg, App}; // make CLI app easier to create by importing clap.
 use serde_json; // import serde_json library to read JSON.
 
 #[cfg(debug_assertions)]
-use std::{ fs, io, path::PathBuf };
+use std::{ fs, io, path::PathBuf }; // import stuff needed to read files
 
 #[cfg(not(debug_assertions))]
 use std::{ env, fs, io, path::PathBuf }; // import stuff need to read files.
