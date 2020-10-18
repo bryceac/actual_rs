@@ -1,9 +1,10 @@
-use clap::{ Arg, App};
-use serde_json;
-use std::{ env, fs, io, path::PathBuf };
+use clap::{ Arg, App}; // make CLI app easier to create by importing clap.
+use serde_json; // import serde_json library to read JSON.
+use std::{ env, fs, io, path::PathBuf }; // import stuff need to read files.
 
 fn main() {
 
+    // setup application and specify arguments, with help text.
     let matches = App::new("Actual Storage")
         .version("0.1")
         .author("Bryce Campbell <tonyhawk2100@gmail.com>")
@@ -19,36 +20,49 @@ fn main() {
         .index(2))
     .get_matches();
 
-    let size: u32 = matches.value_of("size").unwrap().parse().unwrap();
-    let unit: &str = matches.value_of("unit").unwrap();
+    // retrieve numerical size from input
+    let size: u32 = matches.value_of("size").unwrap().parse().expect("Value must be a positive number");
 
+    let unit: &str = matches.value_of("unit").expect("Could not retrieve unit.");
+
+    // preform calculation
     let calculation = calculate(size, unit);
 
+    // output results rounded to 2 decimal places.
     println!("Approximate capacity is: {:.2} {}", calculation, unit)
 }
 
+// load file at a given path.
 fn load_file(file: &PathBuf) -> Result<String, io::Error> {
     fs::read_to_string(file)
 }
 
+// load units from json file
 fn units() -> Vec<String> {
 
     let mut file_path = env::current_exe().unwrap();
 
     file_path = file_path.parent().unwrap().join("units.json");
     
+    // try to retrieve file content
     let content = match load_file(&file_path) {
         Ok(contents) => Some(contents),
         _ => None
     }.expect("Could not load file");
 
+    // parse file content as a String vector
     let units: Vec<String> = serde_json::from_str(&content).expect("Could not decode file");
 
+    // result units found in JSON
     return units;
 }
 
+// perform calculation based on specified size and unit
 fn calculate(size: u32, unit: &str) -> f64 {
-    let index = units().iter().position(|u| u.to_lowercase() == unit.to_lowercase()).expect("unit not found");
 
-    (f64::from(size)*1000_f64.powf(f64::from((index+1) as u32)))/1024_f64.powf(f64::from((index +1) as u32))
+    // attempt to retrieve index of specified unit
+    let index: u32 = units().iter().position(|u| u.to_lowercase() == unit.to_lowercase()).expect("unit not found") as u32;
+
+    // return result of calculation of formula (s*1000^x)/1024^x, where x is 1 high that the index of the specified unit.
+    f64::from(size)*1000_f64.powf(f64::from(index+1))/1024_f64.powf(f64::from(index +1))
 }
