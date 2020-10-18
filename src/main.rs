@@ -1,6 +1,6 @@
 use clap::{ Arg, App};
 use serde_json;
-use std::{ fs, io, path::Path};
+use std::{ env, fs, io, path::{Path, PathBuf } };
 
 fn main() {
 
@@ -27,12 +27,15 @@ fn main() {
     println!("Approximate capacity is: {:.2} {}", calculation, unit)
 }
 
-fn load_file(file: &Path) -> Result<String, io::Error> {
+fn load_file(file: &PathBuf) -> Result<String, io::Error> {
     fs::read_to_string(file)
 }
 
 fn units() -> Vec<String> {
-    let file_path = Path::new("units.json");
+
+    let mut file_path = env::current_exe().unwrap();
+
+    file_path = file_path.parent().unwrap().join("units.json");
     
     let content = match load_file(&file_path) {
         Ok(contents) => Some(contents),
