@@ -12,7 +12,7 @@
 
 This has only been tested on Windows 10, but should work on anything that can compile and run Rust applications.
 
-This <strong>should</strong> work exactly the same as the Swift version, which has migrated over to the Swift Package Manager.
+This <strong>should</strong> work exactly the same as the Swift version (except for the allowance of single letters on units), which has migrated over to the Swift Package Manager.
 
 ===Building===
 
@@ -27,3 +27,39 @@ cargo build
 This will build the application for testing purposes, so it can read the included JSON file, as the release build requires the JSOn and the binary to be together.
 
 Also, thanks to the included wix folder, an MSI can be generated via [https://github.com/volks73/cargo-wix cargo-wix] and will ensure that the JSON file is included with the installer.
+
+===Installation===
+
+To install this program, one of two things can be done.
+
+run the following as root/superuser:
+
+<pre>
+make install
+</pre>
+
+Or, if installing on Windows, use the MSI file that should be included with releases.
+
+===Usage===
+
+While things are pretty much the same as the Swift version, the unit must exactly match what is present in the <strong>units.json</strong> file, though the case does not matter.
+
+the program can thus be used like this:
+
+<pre>
+actual 250 gb
+</pre>
+
+or
+
+<pre>
+actual 250 GB
+</pre>
+
+===Adding Units===
+
+An advantage to this version of the application, over the original applications for Android and iOS, is that the user can add units of measure themselves.
+
+However, the code only supports units no lower than kilobytes, as the formula use exponents with bases of 1000 and 1024, and putting anything before kilobytes in the array will throw off the accuracy.
+
+As a result, the file should only be altered when wanting to deal with values larger than yottabytes, such as the proposed <strong>ronna</strong> and <strong>quecca</strong> prefixes, according to [https://www.sciencemag.org/news/2019/02/you-know-kilo-mega-and-giga-metric-system-ready-ronna-and-quecca Science Mag], with new units added at the end of the array.
