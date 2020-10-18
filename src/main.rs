@@ -40,8 +40,10 @@ fn load_file(file: &PathBuf) -> Result<String, io::Error> {
 // load units from json file
 fn units() -> Vec<String> {
 
+    // retrieve executable's path, so that program works properly after installation on Windows. 
     let mut file_path = env::current_exe().unwrap();
 
+    // get the executable's directory
     file_path = file_path.parent().unwrap().join("units.json");
     
     // try to retrieve file content
