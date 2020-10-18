@@ -23,3 +23,7 @@ To build the program, run the following in the cloned or unarchived repository:
 <pre>
 cargo build
 </pre>
+
+This will build the application for testing purposes, so it can read the included JSON file, as the release build requires the JSOn and the binary to be together.
+
+Also, thanks to the included wix folder, an MSI can be generated via [https://github.com/volks73/cargo-wix cargo-wix] and will ensure that the JSON file is included with the installer.
