@@ -1,6 +1,6 @@
 use clap::{ Arg, App};
 use serde_json;
-use std::{ env, fs, io, path::{Path, PathBuf } };
+use std::{ env, fs, io, path::PathBuf };
 
 fn main() {
 
