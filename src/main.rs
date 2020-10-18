@@ -6,7 +6,7 @@ fn main() {
 
     let calculation = calculate(250, unit);
 
-    println!("Approximate capacity is: {} {}", calculation, unit)
+    println!("Approximate capacity is: {:.2} {}", calculation, unit)
 }
 
 fn load_file(file: &Path) -> Result<String, io::Error> {
