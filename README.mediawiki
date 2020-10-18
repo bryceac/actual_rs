@@ -62,4 +62,10 @@ An advantage to this version of the application, over the original applications 
 
 However, the code only supports units no lower than kilobytes, as the formula use exponents with bases of 1000 and 1024, and putting anything before kilobytes in the array will throw off the accuracy.
 
-As a result, the file should only be altered when wanting to deal with values larger than yottabytes, such as the proposed <strong>ronna</strong> and <strong>quecca</strong> prefixes, according to [https://www.sciencemag.org/news/2019/02/you-know-kilo-mega-and-giga-metric-system-ready-ronna-and-quecca Science Mag], with new units added at the end of the array.
+As a result, the file should only be altered when wanting to deal with values larger than yottabytes, such as the proposed <strong>ronna</strong> and <strong>quecca</strong> prefixes, according to [https://www.sciencemag.org/news/2019/02/you-know-kilo-mega-and-giga-metric-system-ready-ronna-and-quecca Science Mag], with new units added at the end of the array in the JSON file.
+
+===Support===
+
+Due to the fact I have more experience with Swift than Rust, as well as having a higher preference for Swift than Rust, I might not be able to help you out too much, but I will try my best.
+
+However, any problems that arise may be due more to the crates themselves, rather than the code here, though it is still possible there is a bug in my code.
