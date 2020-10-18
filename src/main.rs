@@ -1,5 +1,10 @@
 use clap::{ Arg, App}; // make CLI app easier to create by importing clap.
 use serde_json; // import serde_json library to read JSON.
+
+#[cfg(debug_assertions)]
+use std::{ fs, io, path::PathBuf };
+
+#[cfg(not(debug_assertions))]
 use std::{ env, fs, io, path::PathBuf }; // import stuff need to read files.
 
 fn main() {
@@ -64,11 +69,9 @@ fn units() -> Vec<String> {
 #[cfg(debug_assertions)]
 fn units() -> Vec<String> {
 
-    // retrieve executable's path, so that program works properly after installation on Windows. 
-    let mut file_path = env::current_exe().unwrap();
-
-    // get the executable's directory
-    file_path = file_path.parent().unwrap().join("units.json");
+    // path for json
+    let mut file_path = PathBuf::new();
+    file_path.push("units.json");
     
     // try to retrieve file content
     let content = match load_file(&file_path) {
