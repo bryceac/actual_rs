@@ -27,7 +27,7 @@ fn units() -> Vec<String> {
 }
 
 fn calculate(size: u32, unit: &str) -> f64 {
-    let index = units().iter().position(|u| u == unit).expect("unit not found");
+    let index = units().iter().position(|u| u.to_lowercase() == unit.to_lowercase()).expect("unit not found");
 
     (f64::from(size)*1000_f64.powf(f64::from((index+1) as u32)))/1024_f64.powf(f64::from((index +1) as u32))
 }
