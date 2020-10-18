@@ -38,6 +38,30 @@ fn load_file(file: &PathBuf) -> Result<String, io::Error> {
 }
 
 // load units from json file
+#[cfg(not(debug_assertions))]
+fn units() -> Vec<String> {
+
+    // retrieve executable's path, so that program works properly after installation on Windows. 
+    let mut file_path = env::current_exe().unwrap();
+
+    // get the executable's directory
+    file_path = file_path.parent().unwrap().join("units.json");
+    
+    // try to retrieve file content
+    let content = match load_file(&file_path) {
+        Ok(contents) => Some(contents),
+        _ => None
+    }.expect("Could not load file");
+
+    // parse file content as a String vector
+    let units: Vec<String> = serde_json::from_str(&content).expect("Could not decode file");
+
+    // result units found in JSON
+    return units;
+}
+
+// load units from json file for debugging
+#[cfg(debug_assertions)]
 fn units() -> Vec<String> {
 
     // retrieve executable's path, so that program works properly after installation on Windows. 
