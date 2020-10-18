@@ -1,0 +1,25 @@
+=actual_rs=
+
+'''Description:''' Rust port of [https://github.com/bryceac/ActualStorage-Swift Actual Storage].
+
+'''Version:''' 0.1
+
+'''Creator:''' Bryce Campbell
+
+'''License:''' See LICENSE
+
+==Notes==
+
+This has only been tested on Windows 10, but should work on anything that can compile and run Rust applications.
+
+This <strong>should</strong> work exactly the same as the Swift version, which has migrated over to the Swift Package Manager.
+
+===Building===
+
+This tool requires Cargo, which should be included as part of the [https://doc.rust-lang.org/book/ch01-01-installation.html Rust installation process], as that is the only way to deal with the dependencies.
+
+To build the program, run the following in the cloned or unarchived repository:
+
+<pre>
+cargo build
+</pre>
